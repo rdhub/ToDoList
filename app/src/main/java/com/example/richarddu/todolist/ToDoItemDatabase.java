@@ -20,7 +20,7 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
     private static ToDoItemDatabase sInstance;
     // Database Info
     private static final String DATABASE_NAME = "todoItemsDatabase";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // Table Names
     private static final String TABLE_TODOITEMS = "todoitems";
@@ -29,6 +29,7 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
     private static final String KEY_TODOITEMS_ID = "id";
     private static final String KEY_TODOITEMS_TEXT = "text";
     private static final String KEY_TODOITEMS_RANDID = "randid";
+    private static final String KEY_TODOITEMS_PRIORITY = "priority";
 
     private ToDoItemDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -60,7 +61,8 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
                 "(" +
                 KEY_TODOITEMS_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 KEY_TODOITEMS_TEXT + " TEXT, " +
-                KEY_TODOITEMS_RANDID + " TEXT" +
+                KEY_TODOITEMS_RANDID + " TEXT, " +
+                KEY_TODOITEMS_PRIORITY + " TEXT" +
                 ")";
 
         db.execSQL(CREATE_TODOITEMS_TABLE);
@@ -92,7 +94,7 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_TODOITEMS_TEXT, item.text);
             values.put(KEY_TODOITEMS_RANDID, ""+item.id);
-
+            values.put(KEY_TODOITEMS_PRIORITY, ""+item.priority);
             // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
             db.insertOrThrow(TABLE_TODOITEMS, null, values);
             db.setTransactionSuccessful();

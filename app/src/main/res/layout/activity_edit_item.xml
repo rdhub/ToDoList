@@ -4,40 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.richarddu.todolist.EditItemActivity">
+    tools:context="com.example.richarddu.todolist.EditItemActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="31dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="24dp"
         android:text="Edit Item Below:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteY="16dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/etEditItem"
+        android:layout_alignStart="@+id/etEditItem"
+        android:layout_marginTop="18dp" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
         android:text="@string/save_label"
         android:onClick="onSave"
-        android:layout_below="@+id/etEditItem"
+        tools:layout_editor_absoluteY="447dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/etEditItem"
         android:layout_alignStart="@+id/etEditItem" />
 
     <EditText
         android:id="@+id/etEditItem"
+        android:layout_width="353dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteY="54dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:id="@+id/sPriority"
+        android:layout_width="108dp"
+        android:layout_height="44dp"
+        tools:layout_editor_absoluteX="247dp"
+        tools:layout_editor_absoluteY="137dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/etEditItem"
+        android:layout_alignRight="@+id/etEditItem"
+        android:layout_alignEnd="@+id/etEditItem" />
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_alignStart="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:text="@string/priority_label"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignTop="@+id/sPriority"
+        android:layout_alignLeft="@+id/etEditItem"
+        android:layout_alignStart="@+id/etEditItem"
+        android:layout_alignBottom="@+id/sPriority" />
+
 </android.widget.RelativeLayout>
