@@ -3,7 +3,6 @@ package com.example.richarddu.todolist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,16 +33,12 @@ public class EditItemActivity extends AppCompatActivity {
         sPriority.setAdapter(adapter);
 
         sPriority.setSelection(todoListItem.priority);
-
         sPriority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-                if(!startUp) {
+                if(!startUp)
                     todoListItem.priority = position;
-                    Log.d("HELLO", "" + todoListItem.priority);
-                }
-                Log.d("FIRST", "FIRST");
                 startUp = false;
             }
 
