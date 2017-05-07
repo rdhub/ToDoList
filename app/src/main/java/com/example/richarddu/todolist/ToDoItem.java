@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class ToDoItem implements Serializable {
     public String text;
+    public String id;
     public int priority;
 
     @Override

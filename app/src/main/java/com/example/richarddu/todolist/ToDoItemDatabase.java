@@ -20,7 +20,7 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
     private static ToDoItemDatabase sInstance;
     // Database Info
     private static final String DATABASE_NAME = "todoItemsDatabase";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     // Table Names
     private static final String TABLE_TODOITEMS = "todoitems";
@@ -28,6 +28,7 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
     // Post Table Columns
     private static final String KEY_TODOITEMS_ID = "id";
     private static final String KEY_TODOITEMS_TEXT = "text";
+    private static final String KEY_TODOITEMS_RANDID = "randid";
 
     private ToDoItemDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -58,7 +59,8 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
         String CREATE_TODOITEMS_TABLE = "CREATE TABLE " + TABLE_TODOITEMS +
                 "(" +
                 KEY_TODOITEMS_ID + " INTEGER PRIMARY KEY," + // Define a primary key
-                KEY_TODOITEMS_TEXT + " TEXT" +
+                KEY_TODOITEMS_TEXT + " TEXT, " +
+                KEY_TODOITEMS_RANDID + " TEXT" +
                 ")";
 
         db.execSQL(CREATE_TODOITEMS_TABLE);
@@ -72,7 +74,6 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
         if (oldVersion != newVersion) {
             // Simplest implementation is to drop all old tables and recreate them
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_TODOITEMS);
-
             onCreate(db);
         }
     }
@@ -87,8 +88,10 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
 
+
             ContentValues values = new ContentValues();
             values.put(KEY_TODOITEMS_TEXT, item.text);
+            values.put(KEY_TODOITEMS_RANDID, ""+item.id);
 
             // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
             db.insertOrThrow(TABLE_TODOITEMS, null, values);
@@ -139,10 +142,10 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_TODOITEMS_TEXT, item.text);
-
+        
         // Updating profile picture url for user with that userName
-        return db.update(TABLE_TODOITEMS, values, KEY_TODOITEMS_TEXT + " = ?",
-                new String[] { String.valueOf(item.text) });
+        return db.update(TABLE_TODOITEMS, values, KEY_TODOITEMS_RANDID + " = ?",
+                new String[] { String.valueOf(item.id) });
     }
 
     public void deleteAllItems() {

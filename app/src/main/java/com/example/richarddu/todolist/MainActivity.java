@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         // Create sample data
         ToDoItem newItem = new ToDoItem();
         newItem.text = etEditText.getText().toString();
+        newItem.id = "" + Math.random()*1000000;
 
         // Get singleton instance of database
         ToDoItemDatabase databaseHelper = ToDoItemDatabase.getInstance(this);
