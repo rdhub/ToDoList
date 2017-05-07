@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -16,7 +15,8 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<ToDoItem> todoItems;
-    private ArrayAdapter<ToDoItem> aToDoAdapter;
+    //private ArrayAdapter<ToDoItem> aToDoAdapter;
+    private ItemsAdapter aToDoAdapter;
     private ListView lvItems;
     private EditText etEditText;
 
@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
     public void populateArrayItems() {
         readItems();
 
-        aToDoAdapter = new ArrayAdapter<ToDoItem>(this, android.R.layout.simple_list_item_1, todoItems);
+        aToDoAdapter= new ItemsAdapter(this, todoItems);
+        //aToDoAdapter = new ArrayAdapter<ToDoItem>(this, android.R.layout.simple_list_item_1, todoItems);
     }
 
     private void readItems() {
