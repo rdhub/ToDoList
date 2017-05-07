@@ -80,10 +80,12 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteItem(ToDoItem item)
+    public int deleteItem(ToDoItem item)
     {
         SQLiteDatabase db = getWritableDatabase();
-        return db.delete(TABLE_TODOITEMS, KEY_TODOITEMS_RANDID + "=" + item.id, null) > 0;
+
+        return db.delete(TABLE_TODOITEMS, KEY_TODOITEMS_RANDID + " = ?",
+                new String[] { String.valueOf(item.id) });
     }
     // Insert a post into the database
     public void addItem(ToDoItem item) {
@@ -130,6 +132,7 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
                 do {
                     ToDoItem newItem = new ToDoItem();
                     newItem.text = cursor.getString(cursor.getColumnIndex(KEY_TODOITEMS_TEXT));
+                    newItem.id = cursor.getString(cursor.getColumnIndex(KEY_TODOITEMS_RANDID));
                     toDoItems.add(newItem);
                 } while(cursor.moveToNext());
             }
