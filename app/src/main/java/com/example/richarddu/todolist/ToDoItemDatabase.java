@@ -101,7 +101,7 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_TODOITEMS_TEXT, item.text);
             values.put(KEY_TODOITEMS_RANDID, ""+item.id);
-            values.put(KEY_TODOITEMS_PRIORITY, ""+item.priority);
+            values.put(KEY_TODOITEMS_PRIORITY, item.priority);
             // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
             db.insertOrThrow(TABLE_TODOITEMS, null, values);
             db.setTransactionSuccessful();
@@ -133,6 +133,7 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
                     ToDoItem newItem = new ToDoItem();
                     newItem.text = cursor.getString(cursor.getColumnIndex(KEY_TODOITEMS_TEXT));
                     newItem.id = cursor.getString(cursor.getColumnIndex(KEY_TODOITEMS_RANDID));
+                    newItem.priority = cursor.getInt(cursor.getColumnIndex(KEY_TODOITEMS_PRIORITY));
                     toDoItems.add(newItem);
                 } while(cursor.moveToNext());
             }
@@ -152,7 +153,7 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_TODOITEMS_TEXT, item.text);
-        
+        values.put(KEY_TODOITEMS_PRIORITY, item.priority);
         // Updating profile picture url for user with that userName
         return db.update(TABLE_TODOITEMS, values, KEY_TODOITEMS_RANDID + " = ?",
                 new String[] { String.valueOf(item.id) });

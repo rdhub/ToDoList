@@ -38,7 +38,7 @@ public class EditItemActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 todoListItem.priority = position;
-                Log.d("HEL", ""+todoListItem.priority);
+                Log.d("HELLO", ""+todoListItem.priority);
             }
 
             @Override

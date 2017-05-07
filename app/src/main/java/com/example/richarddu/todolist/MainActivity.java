@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             ToDoItem updatedListItem = (ToDoItem)data.getSerializableExtra("updatedListItem");
             int position = data.getIntExtra("position", -1);
 
+            Log.d("Spinner", ""+updatedListItem.priority);
             todoItems.set(position, updatedListItem);
             aToDoAdapter.notifyDataSetChanged();
             // Get singleton instance of database
@@ -92,10 +93,9 @@ public class MainActivity extends AppCompatActivity {
         for (ToDoItem item: items) {
             // do something
             todoItems.add(item);
-
+            Log.d("reading Items:", ""+item.text);
         }
         Collections.sort(todoItems, new ToDoItem());
-
     }
 
     public void onAddItem(View view) {
