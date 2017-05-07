@@ -4,4 +4,5 @@
     <string name="add_item_label">Add a new item...</string>
     <string name="title_activity_edit_item">EditItemActivity</string>
     <string name="save_label">Save</string>
+    <string name="priority_label">Priority</string>
 </resources>

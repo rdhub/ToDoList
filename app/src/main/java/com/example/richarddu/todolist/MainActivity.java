@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,9 +45,11 @@ public class MainActivity extends AppCompatActivity {
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                ToDoItemDatabase databaseHelper = ToDoItemDatabase.getInstance(MainActivity.this);
+
+                databaseHelper.deleteItem(todoItems.get(position));
                 todoItems.remove(position);
                 aToDoAdapter.notifyDataSetChanged();
-                //writeItems();
                 return true;
             }
         });
@@ -68,17 +71,13 @@ public class MainActivity extends AppCompatActivity {
             // Get singleton instance of database
             ToDoItemDatabase databaseHelper = ToDoItemDatabase.getInstance(this);
             databaseHelper.updateToDoItem(updatedListItem);
-            //writeItems();
+
         }
     }
 
     public void populateArrayItems() {
         readItems();
-        /*ArrayList<String> stringItems = new ArrayList<String>();
-        for(ToDoItem item: todoItems) {
-            stringItems.add(item.text);
-        }*/
-        //aToDoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stringItems);
+
         aToDoAdapter = new ArrayAdapter<ToDoItem>(this, android.R.layout.simple_list_item_1, todoItems);
     }
 
@@ -92,38 +91,12 @@ public class MainActivity extends AppCompatActivity {
         for (ToDoItem item: items) {
             // do something
             todoItems.add(item);
-            //aToDoAdapter.notifyDataSetChanged();
+
         }
+        Collections.sort(todoItems, new ToDoItem());
 
-        /*
-        File filesDir = getFilesDir();
-        File file = new File(filesDir, "todo.txt");
-        try {
-            ArrayList<String> stringItems = new ArrayList<String>(FileUtils.readLines(file));
-            for(String text: stringItems) {
-                ToDoItem item = new ToDoItem();
-                item.text = text;
-                todoItems.add(item);
-            }
-        } catch (IOException e) {
-
-        }*/
     }
 
-    /*private void writeItems() {
-        File filesDir = getFilesDir();
-        File file = new File(filesDir, "todo.txt");
-        try {
-
-            ArrayList<String> stringItems = new ArrayList<String>();
-            for(ToDoItem item: todoItems) {
-                stringItems.add(item.text);
-            }
-            FileUtils.writeLines(file, stringItems);
-        } catch (IOException e) {
-
-        }
-    }*/
     public void onAddItem(View view) {
         // Create sample data
         ToDoItem newItem = new ToDoItem();
@@ -134,12 +107,9 @@ public class MainActivity extends AppCompatActivity {
         ToDoItemDatabase databaseHelper = ToDoItemDatabase.getInstance(this);
         // Add sample post to the database
         databaseHelper.addItem(newItem);
-        //databaseHelper.deleteAllItems();
 
-
-        //aToDoAdapter.add(etEditText.getText().toString());
         aToDoAdapter.add(newItem);
         etEditText.setText("");
-        //writeItems();
+
     }
 }
