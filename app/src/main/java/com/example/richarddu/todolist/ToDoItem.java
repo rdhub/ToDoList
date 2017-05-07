@@ -20,9 +20,7 @@ public class ToDoItem implements Serializable, Comparator<ToDoItem> {
 
     @Override
     public int compare(ToDoItem o1, ToDoItem o2) {
-        if (o1.priority > o2.priority)
-            return 1;
-        else
-            return 0;
+
+        return o2.priority - o1.priority;
     }
 }

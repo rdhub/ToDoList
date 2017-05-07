@@ -3,6 +3,7 @@ package com.example.richarddu.todolist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,7 +12,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
     }
 
     // Time to handle the result of the sub-activity
@@ -66,10 +64,12 @@ public class MainActivity extends AppCompatActivity {
             ToDoItem updatedListItem = (ToDoItem)data.getSerializableExtra("updatedListItem");
             int position = data.getIntExtra("position", -1);
 
+            Log.d("Spinner", ""+updatedListItem.priority);
             todoItems.set(position, updatedListItem);
             aToDoAdapter.notifyDataSetChanged();
             // Get singleton instance of database
             ToDoItemDatabase databaseHelper = ToDoItemDatabase.getInstance(this);
+            Collections.sort(todoItems, new ToDoItem());
             databaseHelper.updateToDoItem(updatedListItem);
 
         }
@@ -82,19 +82,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void readItems() {
-        todoItems = new ArrayList<ToDoItem>();
+
         // Get singleton instance of database
         ToDoItemDatabase databaseHelper = ToDoItemDatabase.getInstance(this);
 
         // Get all posts from database
-        List<ToDoItem> items = databaseHelper.getAllItems();
-        for (ToDoItem item: items) {
-            // do something
-            todoItems.add(item);
+        todoItems = new ArrayList<ToDoItem>(databaseHelper.getAllItems());
 
-        }
         Collections.sort(todoItems, new ToDoItem());
-
     }
 
     public void onAddItem(View view) {

@@ -15,11 +15,12 @@ public class EditItemActivity extends AppCompatActivity {
     private EditText etEditItem;
     private ToDoItem todoListItem;
     private Spinner sPriority;
+    private boolean startUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
-
+        startUp = true;
         etEditItem = (EditText) findViewById(R.id.etEditItem);
         todoListItem = (ToDoItem)getIntent().getSerializableExtra("todoListItem");
         etEditItem.setText("");
@@ -29,16 +30,21 @@ public class EditItemActivity extends AppCompatActivity {
         sPriority = (Spinner) findViewById(R.id.sPriority);
         String[] items = new String[]{"Low", "Medium", "High"};
 
-        sPriority.setSelection(todoListItem.priority);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         sPriority.setAdapter(adapter);
+
+        sPriority.setSelection(todoListItem.priority);
+
         sPriority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-                todoListItem.priority = position;
-                Log.d("HEL", ""+todoListItem.priority);
+                if(!startUp) {
+                    todoListItem.priority = position;
+                    Log.d("HELLO", "" + todoListItem.priority);
+                }
+                Log.d("FIRST", "FIRST");
+                startUp = false;
             }
 
             @Override
