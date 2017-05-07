@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
     }
 
     // Time to handle the result of the sub-activity
@@ -72,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             aToDoAdapter.notifyDataSetChanged();
             // Get singleton instance of database
             ToDoItemDatabase databaseHelper = ToDoItemDatabase.getInstance(this);
+            Collections.sort(todoItems, new ToDoItem());
             databaseHelper.updateToDoItem(updatedListItem);
 
         }
@@ -84,17 +82,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void readItems() {
-        todoItems = new ArrayList<ToDoItem>();
+
         // Get singleton instance of database
         ToDoItemDatabase databaseHelper = ToDoItemDatabase.getInstance(this);
 
         // Get all posts from database
-        List<ToDoItem> items = databaseHelper.getAllItems();
-        for (ToDoItem item: items) {
-            // do something
-            todoItems.add(item);
-            Log.d("reading Items:", ""+item.text);
-        }
+        todoItems = new ArrayList<ToDoItem>(databaseHelper.getAllItems());
+
         Collections.sort(todoItems, new ToDoItem());
     }
 
