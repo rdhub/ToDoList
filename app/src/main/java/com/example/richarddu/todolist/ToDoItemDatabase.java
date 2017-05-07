@@ -20,7 +20,7 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
     private static ToDoItemDatabase sInstance;
     // Database Info
     private static final String DATABASE_NAME = "todoItemsDatabase";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     // Table Names
     private static final String TABLE_TODOITEMS = "todoitems";
