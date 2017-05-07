@@ -45,9 +45,11 @@ public class MainActivity extends AppCompatActivity {
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                ToDoItemDatabase databaseHelper = ToDoItemDatabase.getInstance(MainActivity.this);
+
+                databaseHelper.deleteItem(todoItems.get(position));
                 todoItems.remove(position);
                 aToDoAdapter.notifyDataSetChanged();
-
                 return true;
             }
         });
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         for (ToDoItem item: items) {
             // do something
             todoItems.add(item);
-            //aToDoAdapter.notifyDataSetChanged();
+
         }
         Collections.sort(todoItems, new ToDoItem());
 

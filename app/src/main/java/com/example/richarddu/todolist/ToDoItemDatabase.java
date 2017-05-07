@@ -80,6 +80,11 @@ public class ToDoItemDatabase extends SQLiteOpenHelper {
         }
     }
 
+    public boolean deleteItem(ToDoItem item)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        return db.delete(TABLE_TODOITEMS, KEY_TODOITEMS_RANDID + "=" + item.id, null) > 0;
+    }
     // Insert a post into the database
     public void addItem(ToDoItem item) {
         // Create and/or open the database for writing
